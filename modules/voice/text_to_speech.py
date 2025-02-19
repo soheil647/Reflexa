@@ -21,12 +21,27 @@ class TextToSpeech:
     def speak(self, text):
         logger.info(f"Speaking: {text}")
         try:
-            # Synthesize speech; this returns a NumPy array of the waveform.
+            # Attempt to synthesize speech
             wav = self.tts.tts(text)
-            if wav is None or not isinstance(wav, np.ndarray):
-                logger.error("No audio was synthesized.")
-                return
-            logger.info("Playing synthesized audio...")
+            logger.debug(f"Synthesized output type: {type(wav)}")
+
+            # Log available attributes if possible
+            if hasattr(wav, 'shape'):
+                logger.debug(f"Waveform shape: {wav.shape}")
+            else:
+                logger.debug("No shape attribute available for waveform.")
+
+            # Check if the object supports len()
+            if hasattr(wav, '__len__'):
+                waveform_length = len(wav)
+                logger.info(f"Generated waveform length: {waveform_length}")
+            elif hasattr(wav, 'shape'):
+                waveform_length = wav.shape[0]
+                logger.info(f"Generated waveform length (using shape): {waveform_length}")
+            else:
+                logger.info("Waveform length: unknown (object does not support len() and has no shape)")
+
+            # Play the audio if possible
             sd.play(wav, self.sample_rate)
             sd.wait()  # Wait until playback is finished.
         except Exception as e:

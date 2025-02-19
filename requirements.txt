@@ -16,3 +16,4 @@ pvporcupine
 rapidfuzz
 playsound
 coqui-tts
+espeakng

@@ -1,0 +1,38 @@
+# triton_models/face_detect/config.pbtxt
+
+name: "face_detect"
+platform: "onnxruntime_onnx"
+max_batch_size: 4
+
+input [
+  {
+    name: "images"
+    data_type: TYPE_FP32
+    dims: [3, 640, 640]
+    # If you want a dynamic input shape, replace 640 with -1
+  }
+]
+
+output [
+  {
+    name: "boxes"
+    data_type: TYPE_FP32
+    dims: [ -1, 4 ]
+  },
+  {
+    name: "scores"
+    data_type: TYPE_FP32
+    dims: [ -1 ]
+  },
+  {
+    name: "labels"
+    data_type: TYPE_FP32
+    dims: [ -1 ]
+  }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU
+  }
+]

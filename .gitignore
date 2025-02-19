@@ -1,0 +1,4 @@
+*.onnx
+data/
+venv/
+venv_3-11

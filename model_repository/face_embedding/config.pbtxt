@@ -1,0 +1,27 @@
+# triton_models/face_embedding/config.pbtxt
+
+name: "face_embedding"
+platform: "onnxruntime_onnx"
+max_batch_size: 16
+
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [3, 160, 160]
+  }
+]
+
+output [
+  {
+    name: "output_embedding"
+    data_type: TYPE_FP32
+    dims: [512]
+  }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU
+  }
+]

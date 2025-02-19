@@ -35,7 +35,10 @@ def main():
     translator = Translator()
 
     logger.info("Voice Module Test started. Always listening for wake word...")
+    # tts.speak(f"You said: I am a blackboard. How are you!")
+    # exit()
 
+    tts.speak(f"You can wake me up with 'hey, Anita'. Try it yourself!")
     while True:
         logger.info("Waiting for wake word...")
         if wakeword_detector.detect(timeout=3600):
